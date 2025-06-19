@@ -153,7 +153,7 @@ stayfinder/
    JWT_SECRET=your-super-secure-jwt-secret-key
    JWT_EXPIRE=7d
    MAX_FILE_SIZE=5000000
-   UPLOAD_PATH=./uploads
+   UPLOAD_PATH=./uploads (if needed)
    CLIENT_URL=http://localhost:3000
    ```
 
@@ -258,9 +258,6 @@ stayfinder/
 4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 👥 Authors
 
@@ -272,10 +269,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Built with modern web development best practices
 - Uses open-source libraries and frameworks
 
-## 📞 Support
-
-For support, email support@stayfinder.com or join our Slack channel.
-
----
 
 **StayFinder** - Your gateway to amazing stays around the world! 🏠✨
