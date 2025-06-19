@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
+const auth = require('../middleware/auth');
 const { body } = require('express-validator');
 
 // Validation middleware
@@ -28,6 +29,6 @@ router.post('/login', loginValidation, authController.login);
 // @route   GET /api/auth/me
 // @desc    Get current user
 // @access  Private
-router.get('/me', authController.getCurrentUser);
+router.get('/me', auth, authController.getCurrentUser);
 
 module.exports = router;

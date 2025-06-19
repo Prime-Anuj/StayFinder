@@ -1,7 +1,5 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const path = require('path');
-const fs = require('fs');
 
 exports.getProfile = async (req, res) => {
     try {
@@ -24,8 +22,8 @@ exports.getProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
     try {
-        const { name, email, phone } = req.body;
-        const updateData = { name, email, phone };
+        const { name, email, phone, bio } = req.body;
+        const updateData = { name, email, phone, bio };
 
         // Handle avatar upload
         if (req.file) {
@@ -56,7 +54,7 @@ exports.changePassword = async (req, res) => {
     try {
         const { currentPassword, newPassword } = req.body;
 
-        const user = await User.findById(req.user.userId);
+        const user = await User.findById(req.user.userId).select('+password');
 
         // Check current password
         const isMatch = await user.comparePassword(currentPassword);
@@ -104,7 +102,7 @@ exports.deleteAccount = async (req, res) => {
 exports.getUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id)
-            .select('name avatar isHost createdAt')
+            .select('name avatar isHost createdAt bio')
             .populate('listings', 'title images pricePerNight rating');
 
         if (!user) {

@@ -49,8 +49,8 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Find user by email
-        const user = await User.findOne({ email });
+        // Find user by email and include password
+        const user = await User.findOne({ email }).select('+password');
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
@@ -73,6 +73,18 @@ exports.login = async (req, res) => {
                 email: user.email,
                 isHost: user.isHost
             }
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+exports.getCurrentUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId).select('-password');
+        res.json({
+            success: true,
+            data: user
         });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });

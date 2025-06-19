@@ -13,7 +13,7 @@ if (!fs.existsSync(uploadDir)) {
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         let uploadPath = uploadDir;
-        
+
         // Create subdirectories based on file type
         if (file.fieldname === 'images') {
             uploadPath = path.join(uploadDir, 'listings');
@@ -22,12 +22,12 @@ const storage = multer.diskStorage({
         } else {
             uploadPath = path.join(uploadDir, 'misc');
         }
-        
+
         // Ensure directory exists
         if (!fs.existsSync(uploadPath)) {
             fs.mkdirSync(uploadPath, { recursive: true });
         }
-        
+
         cb(null, uploadPath);
     },
     filename: function (req, file, cb) {

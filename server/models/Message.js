@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const messageSchema = new mongoose.Schema({
-    conversation: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Conversation',
-        required: true
-    },
     sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -27,8 +22,7 @@ const messageSchema = new mongoose.Schema({
                 enum: ['image', 'document', 'link']
             },
             url: String,
-            filename: String,
-            size: Number
+            filename: String
         }]
     },
     messageType: {
@@ -49,17 +43,13 @@ const messageSchema = new mongoose.Schema({
     isDeleted: {
         type: Boolean,
         default: false
-    },
-    deletedBy: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }]
+    }
 }, {
     timestamps: true
 });
 
 // Indexes
-messageSchema.index({ conversation: 1, createdAt: -1 });
+messageSchema.index({ sender: 1, recipient: 1, createdAt: -1 });
 messageSchema.index({ sender: 1 });
 messageSchema.index({ recipient: 1 });
 

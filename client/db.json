@@ -1,233 +1,29 @@
 {
-   "api" :
-    {
-        "users": [
-    {
-      "id": "user_1",
-      "name": "John Smith",
-      "email": "john@example.com",
-      "phone": "+1-555-0123",
-      "avatar": "/uploads/avatars/avatar-1.jpg",
-      "isHost": true,
-      "isVerified": true,
-      "bio": "Experienced host with 5+ years in hospitality",
-      "hostInfo": {
-        "responseRate": 98,
-        "responseTime": "within an hour",
-        "superhost": true
-      },
-      "address": {
-        "city": "San Francisco",
-        "state": "California",
-        "country": "USA"
-      }
-    },
-    {
-      "id": "user_2",
-      "name": "Sarah Johnson",
-      "email": "sarah@example.com",
-      "phone": "+1-555-0456",
-      "avatar": "/uploads/avatars/avatar-2.jpg",
-      "isHost": false,
-      "isVerified": true,
-      "bio": "Travel enthusiast who loves exploring new places"
-    }
+  "users": [
+    { "id": 1, "name": "Alice", "email": "alice@example.com", "isHost": true },
+    { "id": 2, "name": "Bob", "email": "bob@example.com", "isHost": false }
   ],
   "listings": [
     {
-      "id": "listing_1",
-      "title": "Luxury Downtown Apartment with City Views",
-      "description": "Experience the heart of the city in this stunning 2-bedroom apartment featuring floor-to-ceiling windows, modern amenities, and breathtaking skyline views. Perfect for business travelers and vacation guests alike.",
-      "host": "user_1",
-      "address": {
-        "street": "123 Market Street",
-        "city": "San Francisco",
-        "state": "California",
-        "country": "USA",
-        "zipCode": "94105"
-      },
-      "location": {
-        "type": "Point",
-        "coordinates": [-122.3964, 37.7749]
-      },
-      "images": [
-        "/uploads/listings/listing-1-main.jpg",
-        "/uploads/listings/listing-1-bedroom.jpg",
-        "/uploads/listings/listing-1-kitchen.jpg",
-        "/uploads/listings/listing-1-living.jpg"
-      ],
-      "propertyType": "apartment",
-      "roomType": "entire_place",
-      "accommodates": 4,
-      "bedrooms": 2,
-      "beds": 2,
-      "bathrooms": 2,
-      "amenities": [
-        "wifi",
-        "kitchen",
-        "washer",
-        "dryer",
-        "air_conditioning",
-        "heating",
-        "tv",
-        "workspace",
-        "elevator"
-      ],
-      "pricePerNight": 185,
-      "currency": "USD",
-      "fees": {
-        "cleaning": 50,
-        "service": 25,
-        "security": 0
-      },
-      "rules": {
-        "checkInTime": "3:00 PM",
-        "checkOutTime": "11:00 AM",
-        "minimumStay": 2,
-        "maximumStay": 30,
-        "instantBook": true,
-        "cancellationPolicy": "moderate"
-      },
-      "rating": {
-        "overall": 4.8,
-        "cleanliness": 4.9,
-        "accuracy": 4.7,
-        "communication": 4.8,
-        "location": 4.9,
-        "checkIn": 4.8,
-        "value": 4.6
-      },
-      "reviews": [
-        {
-          "user": "user_2",
-          "rating": {
-            "overall": 5,
-            "cleanliness": 5,
-            "accuracy": 5,
-            "communication": 5,
-            "location": 5,
-            "checkIn": 5,
-            "value": 4
-          },
-          "comment": "Absolutely perfect stay! The apartment was spotless, exactly as described, and John was incredibly responsive. The location couldn't be better - walking distance to everything downtown.",
-          "createdAt": "2024-11-15T10:30:00Z"
-        }
-      ],
-      "isActive": true,
-      "isVerified": true,
-      "totalReviews": 23,
-      "createdAt": "2024-01-15T08:00:00Z"
-    },
-    {
-      "id": "listing_2",
-      "title": "Cozy Beach House with Ocean Views",
-      "description": "Relax in this charming beach house just steps from the ocean. Features include a private deck, outdoor shower, and direct beach access. Perfect for couples or small families looking for a peaceful getaway.",
-      "host": "user_1",
-      "address": {
-        "street": "456 Ocean Drive",
-        "city": "Santa Monica",
-        "state": "California",
-        "country": "USA",
-        "zipCode": "90401"
-      },
-      "location": {
-        "type": "Point",
-        "coordinates": [-118.4912, 34.0195]
-      },
-      "images": [
-        "/uploads/listings/listing-2-main.jpg",
-        "/uploads/listings/listing-2-deck.jpg",
-        "/uploads/listings/listing-2-bedroom.jpg",
-        "/uploads/listings/listing-2-beach.jpg"
-      ],
-      "propertyType": "house",
-      "roomType": "entire_place",
-      "accommodates": 3,
-      "bedrooms": 1,
-      "beds": 1,
-      "bathrooms": 1,
-      "amenities": [
-        "wifi",
-        "kitchen",
-        "beach_access",
-        "balcony",
-        "parking",
-        "tv",
-        "hair_dryer",
-        "essentials"
-      ],
-      "pricePerNight": 275,
-      "currency": "USD",
-      "fees": {
-        "cleaning": 75,
-        "service": 35,
-        "security": 100
-      },
-      "rules": {
-        "checkInTime": "4:00 PM",
-        "checkOutTime": "10:00 AM",
-        "minimumStay": 3,
-        "maximumStay": 14,
-        "instantBook": false,
-        "cancellationPolicy": "strict"
-      },
-      "rating": {
-        "overall": 4.6,
-        "cleanliness": 4.5,
-        "accuracy": 4.8,
-        "communication": 4.7,
-        "location": 4.9,
-        "checkIn": 4.4,
-        "value": 4.3
-      },
-      "reviews": [],
-      "isActive": true,
-      "isVerified": true,
-      "totalReviews": 8,
-      "createdAt": "2024-03-20T14:30:00Z"
+      "id": 1,
+      "title": "Cozy Apartment",
+      "description": "A nice place in the city center.",
+      "host": 1,
+      "address": { "city": "New York", "country": "USA" },
+      "images": ["/img1.jpg"],
+      "pricePerNight": 120
     }
   ],
   "bookings": [
     {
-      "id": "booking_1",
-      "listing": "listing_1",
-      "guest": "user_2",
-      "host": "user_1",
-      "checkIn": "2024-12-20T00:00:00Z",
-      "checkOut": "2024-12-23T00:00:00Z",
-      "guests": {
-        "adults": 2,
-        "children": 0,
-        "infants": 0,
-        "pets": 0,
-        "total": 2
-      },
-      "pricing": {
-        "basePrice": 555,
-        "nightlyRate": 185,
-        "nights": 3,
-        "fees": {
-          "cleaning": 50,
-          "service": 25,
-          "security": 0,
-          "taxes": 58
-        },
-        "totalPrice": 688,
-        "currency": "USD"
-      },
-      "status": "confirmed",
-      "paymentInfo": {
-        "paymentMethod": "credit_card",
-        "paymentProcessor": "stripe",
-        "transactionId": "txn_1234567890",
-        "paymentStatus": "completed",
-        "paidAt": "2024-11-20T15:45:00Z"
-      },
-      "guestMessage": "Looking forward to staying at your beautiful apartment! We'll be arriving around 4 PM.",
-      "hostMessage": "Welcome! Check-in instructions will be sent 24 hours before arrival.",
-      "createdAt": "2024-11-20T15:30:00Z"
+      "id": 1,
+      "listing": 1,
+      "guest": 2,
+      "checkIn": "2025-07-01",
+      "checkOut": "2025-07-05",
+      "guests": 2,
+      "totalPrice": 480,
+      "status": "confirmed"
     }
   ]
-    }
-  
 }

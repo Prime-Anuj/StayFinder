@@ -120,3 +120,95 @@ exports.getListingById = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
+exports.getUserListings = async (req, res) => {
+    try {
+        const listings = await Listing.find({ host: req.user.userId })
+            .sort({ createdAt: -1 });
+
+        res.json(listings);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+exports.updateListing = async (req, res) => {
+    try {
+        const listing = await Listing.findById(req.params.id);
+
+        if (!listing) {
+            return res.status(404).json({ message: 'Listing not found' });
+        }
+
+        // Check if user is the host
+        if (listing.host.toString() !== req.user.userId) {
+            return res.status(403).json({ message: 'Not authorized to update this listing' });
+        }
+
+        const updatedListing = await Listing.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        res.json({
+            message: 'Listing updated successfully',
+            listing: updatedListing
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+exports.deleteListing = async (req, res) => {
+    try {
+        const listing = await Listing.findById(req.params.id);
+
+        if (!listing) {
+            return res.status(404).json({ message: 'Listing not found' });
+        }
+
+        // Check if user is the host
+        if (listing.host.toString() !== req.user.userId) {
+            return res.status(403).json({ message: 'Not authorized to delete this listing' });
+        }
+
+        await Listing.findByIdAndDelete(req.params.id);
+
+        res.json({ message: 'Listing deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
+exports.addReview = async (req, res) => {
+    try {
+        const { rating, comment } = req.body;
+        const listing = await Listing.findById(req.params.id);
+
+        if (!listing) {
+            return res.status(404).json({ message: 'Listing not found' });
+        }
+
+        const review = {
+            user: req.user.userId,
+            rating,
+            comment
+        };
+
+        listing.reviews.push(review);
+
+        // Calculate new average rating
+        const totalRating = listing.reviews.reduce((sum, review) => sum + review.rating, 0);
+        listing.rating = totalRating / listing.reviews.length;
+
+        await listing.save();
+
+        res.json({
+            message: 'Review added successfully',
+            listing
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};

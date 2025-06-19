@@ -22,14 +22,14 @@ const reviewSchema = new mongoose.Schema({
         ref: 'Booking',
         required: true
     },
-    
+
     // Review type
     reviewType: {
         type: String,
         enum: ['guest_to_host', 'host_to_guest'],
         required: true
     },
-    
+
     // Ratings (1-5 scale)
     ratings: {
         overall: {
@@ -38,7 +38,6 @@ const reviewSchema = new mongoose.Schema({
             min: 1,
             max: 5
         },
-        // For guest reviews of listings
         cleanliness: {
             type: Number,
             min: 1,
@@ -68,25 +67,9 @@ const reviewSchema = new mongoose.Schema({
             type: Number,
             min: 1,
             max: 5
-        },
-        // For host reviews of guests
-        cleanliness_guest: {
-            type: Number,
-            min: 1,
-            max: 5
-        },
-        communication_guest: {
-            type: Number,
-            min: 1,
-            max: 5
-        },
-        respect_rules: {
-            type: Number,
-            min: 1,
-            max: 5
         }
     },
-    
+
     // Written review
     comment: {
         type: String,
@@ -94,13 +77,7 @@ const reviewSchema = new mongoose.Schema({
         minlength: [10, 'Review comment must be at least 10 characters'],
         maxlength: [2000, 'Review comment cannot exceed 2000 characters']
     },
-    
-    // Private feedback (only visible to the platform)
-    privateFeedback: {
-        type: String,
-        maxlength: [1000, 'Private feedback cannot exceed 1000 characters']
-    },
-    
+
     // Response from reviewee
     response: {
         comment: {
@@ -109,14 +86,14 @@ const reviewSchema = new mongoose.Schema({
         },
         createdAt: Date
     },
-    
+
     // Review status
     status: {
         type: String,
         enum: ['pending', 'published', 'hidden', 'flagged'],
         default: 'pending'
     },
-    
+
     // Helpful votes
     helpful: [{
         user: {
@@ -128,27 +105,7 @@ const reviewSchema = new mongoose.Schema({
             default: Date.now
         }
     }],
-    
-    // Moderation
-    moderation: {
-        flagged: {
-            type: Boolean,
-            default: false
-        },
-        flagReason: String,
-        moderatedBy: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
-        moderatedAt: Date
-    },
-    
-    // Metadata
-    language: {
-        type: String,
-        default: 'en'
-    },
-    
+
     isPublic: {
         type: Boolean,
         default: true
@@ -162,8 +119,6 @@ reviewSchema.index({ listing: 1, createdAt: -1 });
 reviewSchema.index({ reviewer: 1 });
 reviewSchema.index({ reviewee: 1 });
 reviewSchema.index({ booking: 1 });
-reviewSchema.index({ reviewType: 1 });
-reviewSchema.index({ 'ratings.overall': -1 });
 
 // Virtual for helpful count
 reviewSchema.virtual('helpfulCount').get(function() {

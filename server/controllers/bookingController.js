@@ -122,6 +122,42 @@ exports.getHostBookings = async (req, res) => {
     }
 };
 
+exports.getBookingById = async (req, res) => {
+    try {
+        const booking = await Booking.findById(req.params.id)
+            .populate('listing', 'title images address pricePerNight')
+            .populate('guest', 'name email phone')
+            .populate('host', 'name email phone');
+
+        if (!booking) {
+            return res.status(404).json({
+                success: false,
+                message: 'Booking not found'
+            });
+        }
+
+        // Check if user is authorized to view this booking
+        if (booking.guest._id.toString() !== req.user.userId && 
+            booking.host._id.toString() !== req.user.userId) {
+            return res.status(403).json({
+                success: false,
+                message: 'Not authorized to view this booking'
+            });
+        }
+
+        res.json({
+            success: true,
+            data: booking
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Server error',
+            error: error.message
+        });
+    }
+};
+
 exports.updateBookingStatus = async (req, res) => {
     try {
         const { status } = req.body;
@@ -179,6 +215,11 @@ exports.cancelBooking = async (req, res) => {
         }
 
         booking.status = 'cancelled';
+        booking.cancellation = {
+            cancelledBy: booking.guest.toString() === req.user.userId ? 'guest' : 'host',
+            cancellationDate: new Date()
+        };
+
         await booking.save();
 
         res.json({

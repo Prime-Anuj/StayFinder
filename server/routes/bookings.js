@@ -42,9 +42,4 @@ router.put('/:id/status', auth, bookingController.updateBookingStatus);
 // @access  Private
 router.put('/:id/cancel', auth, bookingController.cancelBooking);
 
-// @route   GET /api/bookings/:id/payment
-// @desc    Get payment details for booking
-// @access  Private
-router.get('/:id/payment', auth, bookingController.getPaymentDetails);
-
 module.exports = router;
